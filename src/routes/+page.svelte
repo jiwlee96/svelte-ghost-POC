@@ -1,2 +1,7 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	import { Button } from 'flowbite-svelte';
+</script>
+
+<Button>Default</Button>
+<Button class="!bg-blue-500">Blue</Button>
+<Button class="bg-green-500">Green</Button>
