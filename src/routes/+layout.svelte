@@ -1,52 +1,62 @@
 <script lang="ts">
 	import '../app.css';
+	import { fade } from 'svelte/transition';
 	import IconMenu from '~icons/material-symbols-light/menu';
 	import IconClose from '~icons/material-symbols-light/close';
 
 	let dropdown = false;
 
 	function handleDropdown() {
-		dropdown = !dropdown
-	} 
+		dropdown = !dropdown;
+	}
 </script>
 
-<!-- <Navbar class="bg-transparent border-transparent dark:bg-transparent dark:border-transparent">
-	<NavBrand href="/">
-		<img src={Icon} class="me-3 h-6 sm:h-9" alt="Svelte Logo" />
-		<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Kairos Fellowship Church</span>
-	</NavBrand>
-	<NavHamburger />
-	<NavUl>
-		<NavLi href="/">Home</NavLi>
-		<NavLi href="/about">About</NavLi>
-		<NavLi href="/docs">Navbar</NavLi>
-		<NavLi href="/pricing">Pricing</NavLi>
-		<NavLi href="/contact">Contact</NavLi>
-	</NavUl>
-</Navbar> -->
-
-<nav class="bg-transparent">
-	<div class="bg-white mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-		<button on:click={handleDropdown}>
+<main>
+	<div id="nav" class="container relative flex justify-between bg-transparent p-2">
+		<div class="content-center text-5xl">
+			<IconClose class="m-1 fill-current" />
+			<button class="flex IconClose" on:click={handleDropdown}>
+				{#if dropdown}
+					<div in:fade={{ duration: 300 }}>
+						<IconClose class="IconClose"/>
+					</div>
+				{:else}
+					<div in:fade={{ duration: 300 }}>
+						<IconMenu />
+					</div>
+				{/if}
+			</button>
 			{#if dropdown}
-				<IconClose />
-			{:else}
-				<IconMenu />
+				<div class="testing" transition:fade={{ duration: 300 }}>Hey</div>
 			{/if}
-		</button>
-		{#if dropdown}
-		Hey
-		{/if}
-		<ul>
-			<li>
-				<a href="/">Home</a>
-			</li>
-			<li>
-				<a href="about">About</a>
-			</li>
-		</ul>
+		</div>
+		<nav>
+			<div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+				<div class="relative flex h-16 items-center justify-between">
+					<div class="flex justify-between">
+						<ul>
+							<li>
+								<a href="/">Home</a>
+							</li>
+							<li>
+								<a href="about">About</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
 	</div>
-</nav>
+	
+	<slot />
+</main>
 
+<style lang="css">
+	a {
+		@apply text-3xl underline;
+	}
 
-<slot />
+	.IconClose {
+		@apply text-white;
+	}
+</style>
